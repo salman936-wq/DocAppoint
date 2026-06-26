@@ -3,84 +3,75 @@ import Link from "next/link";
 
 const Header = () => {
     return (
-        <header className="fixed top-0 left-0 right-0 z-50">
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center justify-between px-10 py-4 border-b border-white/5 bg-[#05050f]/80 backdrop-blur-xl">
-                {/* Logo */}
-                <Link href='/'>
-                <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
-                        <span className="text-white font-black text-sm"><GraduationCap/></span>
-                    </div>
-                    <span className="text-white font-bold text-xl tracking-tight">Doc <span className="text-violet-400">Appoint</span></span>
-                </div>
-</Link>
-                {/* Links */}
-                <div className="flex items-center gap-8">
-                    <a href="#about" className="text-slate-400 hover:text-white text-sm font-medium transition-colors">About</a>
-                    <a href="#services" className="text-slate-400 hover:text-white text-sm font-medium transition-colors">Services</a>
-                    <a href="#pricing" className="text-slate-400 hover:text-white text-sm font-medium transition-colors">Pricing</a>
-                    <a href="#contact" className="text-slate-400 hover:text-white text-sm font-medium transition-colors">Contact</a>
-                </div>
-
-                {/* CTAs */}
-                <div className="flex items-center gap-3">
-<Link href='/login'>
-                    <button className="px-4 py-2 text-sm text-slate-300 hover:text-white font-medium transition-colors cursor-pointer">
-                        Log in
-                    </button>
-                    </Link>
-                    <Link href='/register'>
-                    <button className="px-5 py-2 text-sm font-semibold text-white rounded-lg bg-linear-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-400 transition-all shadow-lg shadow-violet-900/30 cursor-pointer">
-                        Register
-                    </button>
-                    </Link>
-
-                </div>
-            </nav>
-
-            {/* Mobile Nav using DaisyUI drawer concept */}
-            <div className="lg:hidden flex items-center justify-between px-5 py-4 bg-[#05050f]/90 backdrop-blur-xl border-b border-white/5">
-                <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-linear-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
-                        <span className="text-white font-black text-xs">N</span>
-                    </div>
-                    <span className="text-white font-bold text-lg">Nexus<span className="text-violet-400">AI</span></span>
-                </div>
-                {/* Hamburger icon - static */}
-                <div className="drawer drawer-end">
-                    <input id="mobile-drawer" type="checkbox" className="drawer-toggle" />
-                    <div className="drawer-content">
-                        <label htmlFor="mobile-drawer" className="btn btn-ghost btn-sm text-slate-300 flex flex-col gap-1 px-2">
-                            <span className="block w-5 h-0.5 bg-slate-300"></span>
-                            <span className="block w-5 h-0.5 bg-slate-300"></span>
-                            <span className="block w-4 h-0.5 bg-slate-300"></span>
-                        </label>
-                    </div>
-                    <div className="drawer-side z-50">
-                        <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
-                        <div className="w-72 min-h-full bg-[#0a0a1a] border-l border-white/10 p-6 flex flex-col gap-6">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-600 to-cyan-500 flex items-center justify-center">
-                                    <span className="text-white font-black text-sm">N</span>
-                                </div>
-                                <span className="text-white font-bold text-xl">Nexus<span className="text-violet-400">AI</span></span>
-                            </div>
-                            <nav className="flex flex-col gap-1">
-                                <a href="#about" className="px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">About</a>
-                                <a href="#services" className="px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Services</a>
-                                <a href="#pricing" className="px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Pricing</a>
-                                <a href="#contact" className="px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Contact</a>
-                            </nav>
-                            <div className="mt-auto flex flex-col gap-3">
-                                <button className="w-full py-2.5 text-sm text-slate-300 border border-white/10 rounded-lg hover:border-white/20 transition-all">Log in</button>
-                                <button className="w-full py-2.5 text-sm font-semibold text-white rounded-lg bg-linear-to-r from-violet-600 to-violet-500">Get started free</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <header className="sticky top-0 z-50 bg-white backdrop-blur-md border-b border-slate-100 shadow-sm">
+      <div className="navbar max-w-7xl mx-auto px-4">
+        {/* Mobile hamburger */}
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+              </svg>
             </div>
-        </header>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-white rounded-xl shadow-xl border border-slate-100 z-[1] mt-3 w-52 p-2">
+              <li><a className="text-slate-700 font-medium hover:text-sky-500">Home</a></li>
+              <li><a className="text-slate-700 font-medium hover:text-sky-500">Doctors</a></li>
+              <li><a className="text-slate-700 font-medium hover:text-sky-500">Appointments</a></li>
+              <li><a className="text-slate-700 font-medium hover:text-sky-500">Dashboard</a></li>
+            </ul>
+          </div>
+          {/* Logo */}
+          <a className="flex items-center gap-2 group cursor-pointer">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center shadow-md shadow-sky-200">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <span className="text-xl font-bold text-slate-800 group-hover:text-sky-600 transition-colors">
+              Doc<span className="text-sky-500">Appoint</span>
+            </span>
+          </a>
+        </div>
+
+        {/* Desktop Nav */}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 gap-1">
+            <li><a className="text-slate-600 font-medium rounded-lg hover:text-sky-500 hover:bg-sky-50 transition-all">Home</a></li>
+            <li><a className="text-slate-600 font-medium rounded-lg hover:text-sky-500 hover:bg-sky-50 transition-all">Doctors</a></li>
+            <li><a className="text-slate-600 font-medium rounded-lg hover:text-sky-500 hover:bg-sky-50 transition-all">Appointments</a></li>
+            <li><a className="text-slate-600 font-medium rounded-lg hover:text-sky-500 hover:bg-sky-50 transition-all">Dashboard</a></li>
+          </ul>
+        </div>
+
+        {/* Right side */}
+        <div className="navbar-end gap-2">
+            <>
+              <button
+                className="btn btn-ghost btn-sm text-slate-600 hover:text-sky-500 hover:bg-sky-50 rounded-lg font-medium border border-slate-200 hover:border-sky-200 transition-all"
+              >
+                Login
+              </button>
+              <button className="btn btn-sm bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-medium border-0 shadow-md shadow-sky-200 hover:shadow-sky-300 transition-all">
+                Register
+              </button>
+            </>
+            <>
+              <div className="flex items-center gap-2">
+                <div className="avatar">
+                  <div className="w-9 rounded-full ring-2 ring-sky-400 ring-offset-1">
+                    <img src="https://i.pravatar.cc/100?img=47" alt="User avatar" />
+                  </div>
+                </div>
+                <button
+                  className="btn btn-ghost btn-sm text-slate-500 hover:text-red-500 hover:bg-red-50 hover:border-transparent rounded-lg font-medium transition-all"
+                >
+                  Logout
+                </button>
+              </div>
+            </>
+        </div>
+      </div>
+    </header>
     );
 };
 
