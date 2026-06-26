@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import DashboardSidebar from "@/app/components/DashboardSidebar";
-import AppointmentCard from "@/components/AppointmentCard";
-import ProfileCard from "@/components/ProfileCard";
+import AppointmentCard from "@/app/components/AppointmentCard";
+import ProfileCard from "@/app/components/ProfileCard";
 
 export default function DashboardPage() {
   const [activePage, setActivePage] = useState("bookings");
