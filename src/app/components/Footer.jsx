@@ -85,14 +85,14 @@ const Footer = () => {
                 <span className="text-fuchsia-400 text-sm mt-0.5">🛟</span>
                 <div>
                   <p className="text-slate-500 text-xs mb-0.5">Support</p>
-                  <a href="mailto:support@docappoint.com" className="text-slate-300 hover:text-white text-sm transition-colors">support@docappoint.com</a>
+                  <a href="mailto:support@docappoint.com" className="text-slate-300 hover:text-white text-sm transition-colors">help@docappoint.com</a>
                 </div>
               </li>
             </ul>
 
             {/* Newsletter */}
             <div className="mt-6 bg-[#0a0a1a] border border-white/5 rounded-xl p-4">
-              <p className="text-slate-400 text-xs mb-3 font-medium">Get appoinment →</p>
+              <p className="text-slate-400 text-xs mb-3 font-medium">Get Appoinment →</p>
               <div className="flex gap-2">
                 <input
                   type="email"
