@@ -1,5 +1,6 @@
 import { GraduationCap, Heart } from "lucide-react";
 import Link from "next/link";
+import RightHeader from "./RightHeader";
 
 const Header = () => {
   return (
@@ -45,40 +46,7 @@ const Header = () => {
         </div>
 
         {/* Right side */}
-        <div className="navbar-end gap-2">
-          <>
-            <Link href='/login'>
-              <button
-                className="btn btn-ghost btn-sm text-slate-600 hover:text-sky-500 hover:bg-sky-50 rounded-lg font-medium border border-slate-200 hover:border-sky-200 transition-all"
-              >
-                Login
-              </button>
-            </Link>
-            <Link href='/register'>
-              <button className="btn btn-sm bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-medium border-0 shadow-md shadow-sky-200 hover:shadow-sky-300 transition-all">
-                Register
-              </button>
-            </Link>
-          </>
-          <>
-            <div className="flex items-center gap-2">
-              <Link href='/dashboard'>
-              <div className="avatar cursor-pointer">
-                
-                <div className="w-9 rounded-full ring-2 ring-sky-400 ring-offset-1">
-                  <img src="https://i.pravatar.cc/100?img=47" alt="User avatar" />
-                </div>
-                
-              </div>
-</Link>
-              <button
-                className="btn btn-ghost btn-sm text-slate-500 hover:text-red-500 hover:bg-red-50 hover:border-transparent rounded-lg font-medium transition-all"
-              >
-                Logout
-              </button>
-            </div>
-          </>
-        </div>
+        <RightHeader></RightHeader>
 
       </div>
     </header>
