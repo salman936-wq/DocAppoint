@@ -1,6 +1,9 @@
-const DoctorCard = ({ name, specialty, experience, hospital, rating, image }) => {
-    return (
-            <div className="bg-white rounded-2xl shadow-md hover:shadow-xl border border-slate-100 overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col">
+import Link from 'next/link'
+
+
+const DoctorCard = ({ name, specialty, experience, hospital, rating, image, reviews, id }) => {
+  return (
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl border border-slate-100 overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col">
       {/* Image */}
       <div className="relative overflow-hidden h-56">
         <img
@@ -42,18 +45,26 @@ const DoctorCard = ({ name, specialty, experience, hospital, rating, image }) =>
 
         {/* Stars */}
         <div className="flex items-center gap-1 mb-4">
-          <span className="text-amber-400 text-sm">★★★★★</span>
-          <span className="text-xs text-slate-500 ml-1">(128 reviews)</span>
+          <span className="text-amber-400 text-sm">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <span key={star}>
+                {rating >= star ? "★" : rating >= star - 0.5 ? "★" : "☆"}
+              </span>
+            ))}
+          </span>
+          <span className="text-xs text-slate-500 ml-1">({reviews} reviews)</span>
         </div>
 
         <div className="mt-auto">
+          <Link href={`/doctors/${id}`}>
           <button className="btn w-full bg-sky-500 hover:bg-sky-600 text-white rounded-xl border-0 font-semibold shadow-md shadow-sky-100 hover:shadow-sky-200 transition-all">
             View Details
           </button>
+          </Link>
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default DoctorCard;
