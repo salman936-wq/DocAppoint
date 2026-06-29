@@ -2,28 +2,63 @@
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form"
+import { updateBookingData } from "../data/doctorData";
 
 
 
 
-export default function AppointmentCard({ doctorName, specialty, doctorImage, date, time, status, _id, doctorId, image, userId, fee, gender, phone, pname, userEmail}) {
+export default function AppointmentCard({ doctorName, specialty, doctorImage, date, time, status, _id, doctorId, image, userId, fee, gender, phone, pname, userEmail, availability}) {
   const statusConfig = {
     confirmed: { label: "Confirmed", class: "bg-green-100 text-green-700" },
     pending: { label: "Pending", class: "bg-amber-100 text-amber-700" },
     cancelled: { label: "Cancelled", class: "bg-red-100 text-red-600" },
   };
   const current = statusConfig[status] || statusConfig.pending;
-  
 
 
 
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [modalOpen, setModalOpen] = useState(false);
   const { data: session, isPending } = authClient.useSession();
+  const slots = availability.flatMap((range) => {
+        const [start, end] = range.split(" - ");
+
+        let arr = [];
+        let time = new Date(`2000 ${start}`);
+        let endTime = new Date(`2000 ${end}`);
+
+        while (time < endTime) {
+            arr.push(
+                time.toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                })
+            );
+            time.setHours(time.getHours() + 1);
+        }
+
+        return arr;
+    });
   const onClose = ()=> setModalOpen(false)
   
-  const onSubmit = (data) => {
-       console.log(data);
+  const onSubmit = async(data) => {
+       const bookAppointmentDetails = {
+            doctorId,
+            doctorName,
+            image,
+            specialty,
+            userId,
+            userEmail,
+            fee,
+            availability,
+            date,
+            gender,
+            phone,
+            pname,
+            time
+        };
+
+        updateBookingData(_id, bookAppointmentDetails)
     }
 
 
@@ -112,8 +147,8 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
         <div className="bg-gradient-to-r from-sky-500 to-sky-600 p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-bold">Book Appointment</h2>
-              <p className="text-sky-100 text-sm mt-0.5">Fill in your details below</p>
+              <h2 className="text-xl font-bold">Edit Appointment</h2>
+              <p className="text-sky-100 text-sm mt-0.5">Change your details below</p>
             </div>
             <button
               onClick={onClose}
@@ -164,6 +199,7 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
                 <input
                     {...register("pname")}
                     type="text"
+                    defaultValue={pname}
                     placeholder="Enter your full name"
                     className="input input-sm w-full border bg-white text-black border-slate-200 rounded-xl focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-sm"
                 />
@@ -171,13 +207,18 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
 
             <div>
                 <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Gender</label>
-                <select {...register("gender", { required: true })} className="select select-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 text-sm bg-white text-black">
-                    <option value="">Select gender</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
-                    <option>Prefer not to say</option>
-                </select>
+                <select
+  {...register("gender", { required: true })}
+  value={gender}
+  onChange={(e) => setGender(e.target.value)}
+  className="select select-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 text-sm bg-white text-black"
+>
+  <option value="">Select gender</option>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+  <option value="Other">Other</option>
+  <option value="Prefer not to say">Prefer not to say</option>
+</select>
             </div>
 
             <div>
@@ -186,6 +227,7 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
                     type="tel"
                     {...register("phone", { required: true })}
                     placeholder="+880 17xx-xxxxxx"
+                    defaultValue={phone}
                     className="input input-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-sm bg-white text-black"
                 />
             </div>
@@ -196,19 +238,31 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
                     <input
                         {...register("date", { required: true })}
                         type="date"
+                        defaultValue={date}
                         className="input input-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 focus:ring-2 bg-white text-black focus:ring-sky-100 text-sm text-slate-600"
                     />
                 </div>
                 <div>
                     <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Appointment Time</label>
-                    <select {...register("time", { required: true })} className="select select-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 text-sm text-slate-600 bg-white text-black">
-                        <option className="block" value="">Select time</option>
-                    </select>
+<select
+  {...register("time", { required: true })}
+  value={time}
+  onChange={(e) => setTime(e.target.value)}
+  className="select select-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 text-sm text-slate-600 bg-white text-black"
+>
+  <option value="">Select time</option>
+
+  {slots.map((slot, index) => (
+    <option key={index + 1} value={slot}>
+      {slot}
+    </option>
+  ))}
+</select>
                 </div>
             </div>
 
             <button type='submit' className="btn w-full bg-sky-500 hover:bg-sky-600 text-white rounded-xl border-0 font-semibold shadow-md shadow-sky-100 mt-2">
-                Confirm Appointment
+                Confirm Edit
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>

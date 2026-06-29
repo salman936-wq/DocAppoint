@@ -43,6 +43,7 @@ const BookAppForm = ({ doctorId, doctorName, image, specialty, availability, fee
             userId,
             userEmail,
             fee,
+            availability,
             date: data.date,
             gender: data.gender,
             phone: data.phone,

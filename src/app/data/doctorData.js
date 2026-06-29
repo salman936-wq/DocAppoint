@@ -15,3 +15,25 @@ export const getBookingData = async (id) => {
   const data = await res.json()
   return data  
 }
+
+export const updateBookingData = async (id, updatedFields) => {
+  try {
+    const res = await fetch(`${process.env.SERVER_URL}/bookings/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedFields),
+    });
+        if (!res.ok) {
+      throw new Error('Failed to update booking');
+    }
+
+    const data = await res.json();
+    console.log(data.message);
+    return data;
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};

@@ -30,7 +30,7 @@ const Bookings = ({bookingData}) => {
             <div className="w-full grid grid-cols-2 gap-4">
               {
                 bookingData.map((info, index) => {
-                 return <AppointmentCard key={index + 1} doctorName={info.doctorName} specialty={info.specialty} doctorImage={info.image} date={info.date} time={info.time} status="confirmed" doctorId={info.doctorId} image={info.image} userId={info.userId} userEmail={info.userEmail} fee={info.fee} gender={info.gender} phone={info.phone} pname={info.pname} availability={info.availability}/>
+                 return <AppointmentCard key={index + 1} _id={info._id} doctorName={info.doctorName} specialty={info.specialty} doctorImage={info.image} date={info.date} time={info.time} status="confirmed" doctorId={info.doctorId} image={info.image} userId={info.userId} userEmail={info.userEmail} fee={info.fee} gender={info.gender} phone={info.phone} pname={info.pname} availability={info.availability}/>
                 })
               }
             </div>
