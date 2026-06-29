@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import { authClient } from "@/lib/auth-client";
 const BookAppForm = ({ doctorId, doctorName, image, specialty, availability, fee }) => {
+
+    
     const { register, handleSubmit, formState: { errors } } = useForm()
     const slots = availability.flatMap((range) => {
         const [start, end] = range.split(" - ");

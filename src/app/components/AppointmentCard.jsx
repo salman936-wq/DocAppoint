@@ -1,26 +1,37 @@
-export default function AppointmentCard({
-  doctorName,
-  specialty,
-  doctorImage,
-  date,
-  time,
-  status,
-  onUpdate,
-  onDelete,
-}) {
+"use client";
+import { authClient } from "@/lib/auth-client";
+import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form"
+
+
+
+
+export default function AppointmentCard({ doctorName, specialty, doctorImage, date, time, status, _id, doctorId, image, userId, fee, gender, phone, pname, userEmail}) {
   const statusConfig = {
     confirmed: { label: "Confirmed", class: "bg-green-100 text-green-700" },
     pending: { label: "Pending", class: "bg-amber-100 text-amber-700" },
     cancelled: { label: "Cancelled", class: "bg-red-100 text-red-600" },
   };
-
   const current = statusConfig[status] || statusConfig.pending;
+  
+
+
+
+  const { register, handleSubmit, formState: { errors } } = useForm()
+  const [modalOpen, setModalOpen] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+  const onClose = ()=> setModalOpen(false)
+  
+  const onSubmit = (data) => {
+       console.log(data);
+    }
+
 
   return (
     <div className="bg-white rounded-2xl border border-slate-100 shadow-md hover:shadow-lg transition-all duration-200 overflow-hidden">
       <div className="flex items-start gap-4 p-5">
         {/* Doctor image */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <img
             src={doctorImage}
             alt={doctorName}
@@ -60,7 +71,7 @@ export default function AppointmentCard({
       {/* Actions */}
       <div className="border-t border-slate-100 px-5 py-3 flex gap-2 bg-slate-50/50">
         <button
-          onClick={onUpdate}
+          onClick={() => setModalOpen(true)}
           className="btn btn-sm flex-1 bg-sky-500 hover:bg-sky-600 text-white border-0 rounded-lg font-medium shadow-sm"
         >
           <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,8 +79,9 @@ export default function AppointmentCard({
           </svg>
           Update
         </button>
+
         <button
-          onClick={onDelete}
+          
           className="btn btn-sm flex-1 bg-white hover:bg-red-50 text-red-500 border border-red-200 hover:border-red-300 rounded-lg font-medium transition-all"
         >
           <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,6 +90,136 @@ export default function AppointmentCard({
           Delete
         </button>
       </div>
+
+
+
+
+
+
+
+      {/* ------------------------------------- */}
+
+{modalOpen && <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-sky-500 to-sky-600 p-6 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-bold">Book Appointment</h2>
+              <p className="text-sky-100 text-sm mt-0.5">Fill in your details below</p>
+            </div>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        {/* -------------------------------------- Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
+            {/* Readonly doctor info */}
+            <div className="grid grid-cols-2 gap-3">
+                <div>
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Doctor Name</label>
+                    <input
+                        type="text"
+                        value={isPending ? 'Loading...' : doctorName}
+                        readOnly
+                        className="input input-sm w-full bg-slate-50 border border-slate-200 rounded-xl text-slate-600 text-sm cursor-not-allowed"
+                    />
+                </div>
+                <div>
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Your Email</label>
+                    <input
+                        type="email"
+                        value={isPending ? 'Loading...' : userEmail}
+                        readOnly
+                        className="input input-sm w-full bg-slate-50 border border-slate-200 rounded-xl text-slate-600 text-sm cursor-not-allowed"
+                    />
+                </div>
+            </div>
+
+            <div>
+                <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Patient Name</label>
+                <input
+                    {...register("pname")}
+                    type="text"
+                    placeholder="Enter your full name"
+                    className="input input-sm w-full border bg-white text-black border-slate-200 rounded-xl focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-sm"
+                />
+            </div>
+
+            <div>
+                <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Gender</label>
+                <select {...register("gender", { required: true })} className="select select-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 text-sm bg-white text-black">
+                    <option value="">Select gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                    <option>Prefer not to say</option>
+                </select>
+            </div>
+
+            <div>
+                <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Phone Number</label>
+                <input
+                    type="tel"
+                    {...register("phone", { required: true })}
+                    placeholder="+880 17xx-xxxxxx"
+                    className="input input-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-sm bg-white text-black"
+                />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+                <div>
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Appointment Date</label>
+                    <input
+                        {...register("date", { required: true })}
+                        type="date"
+                        className="input input-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 focus:ring-2 bg-white text-black focus:ring-sky-100 text-sm text-slate-600"
+                    />
+                </div>
+                <div>
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Appointment Time</label>
+                    <select {...register("time", { required: true })} className="select select-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 text-sm text-slate-600 bg-white text-black">
+                        <option className="block" value="">Select time</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type='submit' className="btn w-full bg-sky-500 hover:bg-sky-600 text-white rounded-xl border-0 font-semibold shadow-md shadow-sky-100 mt-2">
+                Confirm Appointment
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+            </button>
+        </form>
+
+        
+      </div>
+    </div>}
+
+
     </div>
   );
 }
