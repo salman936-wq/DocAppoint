@@ -3,3 +3,9 @@ export const getAllDoctors = async()=> {
   const data = await res.json()
   return data
 }
+
+export const getPersonalDoctorDataFromPathPage = async (id) => {
+const res = await fetch(`http://localhost:5500/doctors/${id}`)
+const data = await res.json();
+return data;
+}
