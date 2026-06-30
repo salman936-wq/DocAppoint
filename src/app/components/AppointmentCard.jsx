@@ -20,26 +20,8 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [modalOpen, setModalOpen] = useState(false);
   const { data: session, isPending } = authClient.useSession();
-  const slots = availability.flatMap((range) => {
-        const [start, end] = range.split(" - ");
-
-        let arr = [];
-        let time = new Date(`2000 ${start}`);
-        let endTime = new Date(`2000 ${end}`);
-
-        while (time < endTime) {
-            arr.push(
-                time.toLocaleTimeString("en-US", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                })
-            );
-            time.setHours(time.getHours() + 1);
-        }
-
-        return arr;
-    });
   const onClose = ()=> setModalOpen(false)
+
   
   const onSubmit = async(data) => {
        const bookAppointmentDetails = {
@@ -246,17 +228,10 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
                     <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Appointment Time</label>
 <select
   {...register("time", { required: true })}
-  value={time}
   onChange={(e) => setTime(e.target.value)}
   className="select select-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 text-sm text-slate-600 bg-white text-black"
 >
-  <option value="">Select time</option>
-
-  {slots.map((slot, index) => (
-    <option key={index + 1} value={slot}>
-      {slot}
-    </option>
-  ))}
+  <option value="">{{time}}</option>
 </select>
                 </div>
             </div>

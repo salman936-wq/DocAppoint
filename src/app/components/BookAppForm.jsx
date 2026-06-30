@@ -59,7 +59,6 @@ const BookAppForm = ({ doctorId, doctorName, image, specialty, availability, fee
             body: JSON.stringify(bookAppointmentDetails)
         });
         const result = await res.json();
-        console.log(result);
     }
 
     return (
