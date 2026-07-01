@@ -1,39 +1,39 @@
-export const getAllDoctors = async()=> {
+export const getAllDoctors = async () => {
   const res = await fetch(`${process.env.SERVER_URL}/doctors`)
   const data = await res.json()
   return data
 }
 
 export const getPersonalDoctorDataFromPathPage = async (id) => {
-const res = await fetch(`http://localhost:5500/doctors/${id}`)
-const data = await res.json();
-return data;
+  const res = await fetch(`http://localhost:5500/doctors/${id}`)
+  const data = await res.json();
+  return data;
 }
 
 export const getBookingData = async (id) => {
   const res = await fetch(`${process.env.SERVER_URL}/bookings/${id}`)
   const data = await res.json()
-  return data  
+  return data
 }
 
 export const updateBookingData = async (id, updatedFields) => {
   try {
-    const res = await fetch(`${process.env.SERVER_URL}/bookings/${id}`, {
+    const res = await fetch(`http://localhost:5500/bookings/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updatedFields),
     });
-        if (!res.ok) {
+    if (!res.ok) {
       throw new Error('Failed to update booking');
     }
 
     const data = await res.json();
-    console.log(data.message);
-    return data;
+    return data.acknowledged;
 
   } catch (error) {
     console.error('Error:', error);
   }
+  
 };
