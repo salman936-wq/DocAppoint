@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import { authClient } from "@/lib/auth-client";
-const BookAppForm = ({ doctorId, doctorName, image, specialty, availability, fee }) => {
+const BookAppForm = ({ doctorId, doctorName, image, specialty, availability, fee, onClose }) => {
 
-    
+
     const { register, handleSubmit, formState: { errors } } = useForm()
     const slots = availability.flatMap((range) => {
         const [start, end] = range.split(" - ");
@@ -59,6 +59,10 @@ const BookAppForm = ({ doctorId, doctorName, image, specialty, availability, fee
             body: JSON.stringify(bookAppointmentDetails)
         });
         const result = await res.json();
+        if (result) {
+            alert("Doctor boocked successfully")
+            onClose()
+        }
     }
 
     return (

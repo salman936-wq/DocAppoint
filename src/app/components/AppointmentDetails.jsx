@@ -23,7 +23,7 @@ const AppointmentDetails = ({bookingData}) => {
               <h1 className="text-2xl font-bold text-slate-800">My Profile</h1>
               <p className="text-slate-500 mt-1">View and update your personal information</p>
             </div>
-            <ProfileCard />
+            <ProfileCard bookingData={bookingData}/>
           </div>
         )}
       </main>

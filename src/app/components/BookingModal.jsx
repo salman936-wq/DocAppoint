@@ -34,7 +34,7 @@ export default function BookingModal({ isOpen, onClose, id, name, image, special
         </div>
 
         {/* Form */}
-        <BookAppForm doctorId={id} doctorName={name} image={image} specialty={specialty} availability={availability} fee={fee}></BookAppForm>
+        <BookAppForm onClose={onClose} doctorId={id} doctorName={name} image={image} specialty={specialty} availability={availability} fee={fee}></BookAppForm>
 
         
       </div>

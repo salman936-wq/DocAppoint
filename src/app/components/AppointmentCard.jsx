@@ -197,8 +197,7 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
               <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1.5">Gender</label>
               <select
                 {...register("gender", { required: true })}
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
+                defaultValue={gender}
                 className="select select-sm w-full border border-slate-200 rounded-xl focus:border-sky-400 text-sm bg-white text-black"
               >
                 <option value="">Select gender</option>
