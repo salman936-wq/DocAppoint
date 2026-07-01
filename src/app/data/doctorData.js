@@ -56,3 +56,27 @@ export const deleteBookingData = async (id) => {
     console.error('Error:', error);
   }
 };
+
+export const updateUserData = async (id, updatedFields) => {
+  try {
+    const res = await fetch(`http://localhost:5500/user/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedFields),
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to update user');
+    }
+
+    const data = await res.json();
+    console.log(data.result.acknowledged);
+    return data.result.acknowledged;
+
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+};

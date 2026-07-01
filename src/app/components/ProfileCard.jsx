@@ -1,10 +1,13 @@
 "use client"
 import { authClient } from "@/lib/auth-client";
+import { useState } from "react";
+import EditProfileModal from "./EditProfileModal";
 
 export default function ProfileCard({bookingData}) {
 const { data: session, isPending } = authClient.useSession()
+const [modalOpen, setModalOpen] = useState(false);
 
-  
+
   return (
     <div>
       <div className="bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden">
@@ -52,7 +55,7 @@ const { data: session, isPending } = authClient.useSession()
 
 
           {/* Update button */}
-          <button className="btn w-full bg-sky-500 hover:bg-sky-600 text-white rounded-xl border-0 font-semibold shadow-md shadow-sky-100">
+          <button onClick={() => setModalOpen(true)} className="btn w-full bg-sky-500 hover:bg-sky-600 text-white rounded-xl border-0 font-semibold shadow-md shadow-sky-100">
             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
@@ -60,6 +63,8 @@ const { data: session, isPending } = authClient.useSession()
           </button>
         </div>
       </div>
+
+      <EditProfileModal onClose={() => setModalOpen(false)} modalOpen={modalOpen} isPending={isPending} session={session}/>
     </div>
   );
 }

@@ -9,7 +9,7 @@ import BookingModal from "@/app/components/BookingModal";
 
 const IdentyDoctors = ({ _id, name, specialty, image, rating, reviews, experience, availability, description, hospital, location, fee }) => {
 
-    
+
     const [modalOpen, setModalOpen] = useState(false);
 
     return (
@@ -22,7 +22,7 @@ const IdentyDoctors = ({ _id, name, specialty, image, rating, reviews, experienc
                     <a className="hover:text-sky-500 cursor-pointer">Doctors</a>
                     <span>/</span>
                     <span className="text-slate-700 font-medium">{name}</span>
-                    
+
                 </div>
 
                 <div className="bg-white rounded-3xl shadow-md border border-slate-100 overflow-hidden">
@@ -141,7 +141,7 @@ const IdentyDoctors = ({ _id, name, specialty, image, rating, reviews, experienc
                     </div>
                 </div>
             </div>
-<BookingModal isOpen={modalOpen} onClose={() => setModalOpen(false)} id={_id} name={name} image={image} specialty={specialty} availability={availability} fee={fee}/> 
+            <BookingModal isOpen={modalOpen} onClose={() => setModalOpen(false)} id={_id} name={name} image={image} specialty={specialty} availability={availability} fee={fee} />
         </div>
     );
 };

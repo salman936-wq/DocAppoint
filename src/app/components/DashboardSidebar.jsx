@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 
-export default function DashboardSidebar({ activePage, setActivePage }) {
+export default function DashboardSidebar({ activePage, setActivePage, image, name, email, bookingData}) {
+  
   const navItems = [
     {
       id: "profile",
@@ -43,12 +44,12 @@ export default function DashboardSidebar({ activePage, setActivePage }) {
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="w-10 rounded-full ring-2 ring-sky-400 ring-offset-1">
-              <img src="https://i.pravatar.cc/100?img=47" alt="User" />
+              <img src={image} alt="User" />
             </div>
           </div>
           <div>
-            <p className="text-sm font-bold text-slate-700">John Doe</p>
-            <p className="text-xs text-slate-400">john@email.com</p>
+            <p className="text-sm font-bold text-slate-700">{name}</p>
+            <p className="text-xs text-slate-400">{email}</p>
           </div>
         </div>
       </div>
@@ -85,7 +86,7 @@ export default function DashboardSidebar({ activePage, setActivePage }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               My Bookings
-              <span className="ml-auto bg-sky-100 text-sky-600 text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+              <span className="ml-auto bg-sky-100 text-sky-600 text-xs font-bold px-2 py-0.5 rounded-full">{bookingData.length}</span>
             </button>
           </li>
         </ul>

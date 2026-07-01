@@ -4,12 +4,12 @@ import DashboardSidebar from "@/app/components/DashboardSidebar";
 import ProfileCard from "@/app/components/ProfileCard";
 import Bookings from "./Bookings";
 
-const AppointmentDetails = ({bookingData}) => {
+const AppointmentDetails = ({bookingData, image, name, email}) => {
   const [activePage, setActivePage] = useState("bookings");
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
-      <DashboardSidebar activePage={activePage} setActivePage={setActivePage} />
+      <DashboardSidebar image={image} name={name} email={email} bookingData={bookingData}  activePage={activePage} setActivePage={setActivePage} />
 
       {/* Main content */}
       <main className="flex-1 p-8 overflow-y-auto">
