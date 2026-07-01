@@ -2,7 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form"
-import { updateBookingData } from "../data/doctorData";
+import { deleteBookingData, updateBookingData } from "../data/doctorData";
 
 
 
@@ -32,9 +32,9 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
 
 
     updateBookingData(_id, bookAppointmentDetails)
-    
-    if(updateBookingData){
-      
+
+    if (updateBookingData) {
+
       onClose()
       window.location.reload();
     }
@@ -95,7 +95,16 @@ export default function AppointmentCard({ doctorName, specialty, doctorImage, da
         </button>
 
         <button
+          onClick={async () => {
+            const result = await deleteBookingData(_id);
 
+            if (result) {
+              alert("Deleted successfully");
+              window.location.reload();
+            } else {
+              alert("Failed to delete booking");
+            }
+          }}
           className="btn btn-sm flex-1 bg-white hover:bg-red-50 text-red-500 border border-red-200 hover:border-red-300 rounded-lg font-medium transition-all"
         >
           <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

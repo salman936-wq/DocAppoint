@@ -37,3 +37,22 @@ export const updateBookingData = async (id, updatedFields) => {
   }
   
 };
+
+export const deleteBookingData = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:5500/bookings/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to delete booking');
+    }
+
+    const data = await res.json();
+    console.log(data.message);
+    return data;
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
